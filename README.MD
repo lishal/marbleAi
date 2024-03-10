@@ -7,16 +7,16 @@ Component Created for the dashboard
 6.	SkeletonChart.tsx, SkeletonTab.tsx: These component is rendered when data is not fetched from server side.
 7.	dashboard.css: This file contains all the necessary style for the dashboard component.
 
-Tools used:
-	Recharts for charts 
-    Material UI for useful component
+Tools used:<br>
+	Recharts for charts <br>
+    Material UI for useful component <br>
 Note:
-•	setTimeout function is used for the loading animation for 3 seconds.
-•	metricData component keeps track for all the metric present in dashboard 
+•	setTimeout function is used for the loading animation for 3 seconds. <br>
+•	metricData component keeps track for all the metric present in dashboard <br>
    [ { label: 'Online store sessions', dataValue: '255,581', increaseRate: '9%', data: generateData(10) },
     { label: 'Net return value', dataValue: '-$15,07.44', increaseRate: '14%', data: generateData(10) },
     { label: 'Total orders', dataValue: '10,511', decreaseRate: '2%', data: generateData(10) },
-    { label: 'Conversion rate', dataValue: '3.18%', increaseRate: '7%', data: generateData(10) }]
-Above is the data used in the metricData component and it circulates the data throughout the dashboard.
+    { label: 'Conversion rate', dataValue: '3.18%', increaseRate: '7%', data: generateData(10) }] <br>
+Above is the data used in the metricData component and it circulates the data throughout the dashboard.<br>
 
 
