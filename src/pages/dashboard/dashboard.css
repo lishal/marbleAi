@@ -1,0 +1,190 @@
+.content-wrapper {
+    height: calc(100vh - 20vh);
+}
+
+.basetemplate {
+    width: calc(100vw - 10%);
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.headerTabs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.metrices {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    width: 100%;
+
+}
+
+.metricPill {
+    flex: 1;
+    min-width: 260px;
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.editIcon {
+    height: 25px !important;
+    aspect-ratio: 1;
+}
+
+.metricPill:hover {
+    background-color: #D9D9D9;
+}
+
+.metricPill.active {
+    background-color: #D9D9D9;
+}
+
+.metricPill-Skeleton {
+    background-color: #D9D9D9;
+}
+
+.dropdownBtn {
+    cursor: pointer;
+}
+
+.metricHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.metricTitle {
+    font-weight: 500;
+    color: #303030;
+    border-bottom: 2px dotted #CCCCCC;
+}
+
+.metricEdit {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.metricData {
+    display: inline-flex;
+    gap: 5px;
+}
+
+.dataValue {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.increaseRate {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+.decreaseRate {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: rgb(199, 8, 8);
+}
+
+.drowndownMenuItems {
+    display: flex;
+    flex-direction: column;
+}
+
+.drowndownMenuItem {
+    display: inline-flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.graphIcon {
+    color: #616161
+}
+
+.menuItemName {
+    color: #303030;
+}
+
+.drowndownMenuItem.active,
+.drowndownMenuItem:hover {
+    background-color: #F1F1F1;
+    border-radius: 10px;
+}
+
+.menuItem {
+    display: flex;
+    gap: 5px;
+}
+
+.chart {
+    display: none;
+}
+
+
+
+.dateContainer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.dateSection {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    background-color: #F6F6F7;
+    padding-inline: 10px;
+    border-radius: 10px;
+}
+
+.dateArea {
+    display: inline-flex;
+    gap: 10px;
+}
+
+.legendDate {
+    background-color: #F6F6F7;
+    color: #70707A;
+}
+
+.dateDivider {
+    font-size: 25px;
+}
+
+.legendSvg {
+    height: 10px !important;
+    width: 20px;
+    margin-top: 10px;
+}
+
+.chartLegend {
+    stroke: #489AD2;
+    stroke-width: 4px;
+}
+
+.chartLegend.dotted {
+    stroke-dasharray: 5 5;
+    opacity: 0.4;
+}
+
+.chartExpanded {
+    min-height: 250px;
+    display: block;
+}
+
+.chartExpanded>.chart-Skeleton {
+    display: block;
+
+}

@@ -1,113 +1,58 @@
-import React, { useMemo } from "react";
-import { CrudFilter, useList } from "@refinedev/core";
-import dayjs from "dayjs";
-import Stats from "../../components/dashboard/Stats";
-import { ResponsiveAreaChart } from "../../components/dashboard/ResponsiveAreaChart";
-import { ResponsiveBarChart } from "../../components/dashboard/ResponsiveBarChart";
-import { TabView } from "../../components/dashboard/TabView";
-import { RecentSales } from "../../components/dashboard/RecentSales";
-import { IChartDatum, TTab } from "../../interfaces";
+import React, { useState, useEffect } from 'react'
+import "./dashboard.css";
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import SkeletonChart from '../../components/dashboard/loading/SkeletonChart';
+import { MetricPill } from '../../components/dashboard/MetricPill';
+import { metricsData } from '../../components/dashboard/MetricsData';
+import SkeletonTab from '../../components/dashboard/loading/SkeletonTab';
+import { LineChartView } from '../../components/dashboard/LineChartView';
 
-const filters: CrudFilter[] = [
-  {
-    field: "start",
-    operator: "eq",
-    value: dayjs()?.subtract(7, "days")?.startOf("day"),
-  },
-  {
-    field: "end",
-    operator: "eq",
-    value: dayjs().startOf("day"),
-  },
-];
 
 export const Dashboard: React.FC = () => {
-  const { data: dailyRevenue } = useList<IChartDatum>({
-    resource: "dailyRevenue",
-    filters,
-  });
+  const [loading, setLoading] = useState<boolean>(true)
+  const [chartData, setChartData] = useState<{ data: any } | null>(null);
+  const [expanded, setExpanded] = useState<boolean>(false)
+  const [activeMetric, setActiveMetric] = useState<number | null>(null);
+  setTimeout(() => {
+    setLoading(false)
+  }, 3000);
+  const handleExpandedIcon = () => {
+    setExpanded(!expanded);
+  }
 
-  const { data: dailyOrders } = useList<IChartDatum>({
-    resource: "dailyOrders",
-    filters,
-  });
-
-  const { data: newCustomers } = useList<IChartDatum>({
-    resource: "newCustomers",
-    filters,
-  });
-
-  const useMemoizedChartData = (d: any) => {
-    return useMemo(() => {
-      return d?.data?.data?.map((item: IChartDatum) => ({
-        date: new Intl.DateTimeFormat("en-US", {
-          month: "short",
-          year: "numeric",
-          day: "numeric",
-        }).format(new Date(item.date)),
-        value: item?.value,
-      }));
-    }, [d]);
+  const handlePillClick = (data: any, index: number) => {
+    setActiveMetric(index);
+    setChartData(data);
   };
-
-  const memoizedRevenueData = useMemoizedChartData(dailyRevenue);
-  const memoizedOrdersData = useMemoizedChartData(dailyOrders);
-  const memoizedNewCustomersData = useMemoizedChartData(newCustomers);
-
-  const tabs: TTab[] = [
-    {
-      id: 1,
-      label: "Daily Revenue",
-      content: (
-        <ResponsiveAreaChart
-          kpi="Daily revenue"
-          data={memoizedRevenueData}
-          colors={{
-            stroke: "rgb(54, 162, 235)",
-            fill: "rgba(54, 162, 235, 0.2)",
-          }}
-        />
-      ),
-    },
-    {
-      id: 2,
-      label: "Daily Orders",
-      content: (
-        <ResponsiveBarChart
-          kpi="Daily orders"
-          data={memoizedOrdersData}
-          colors={{
-            stroke: "rgb(255, 159, 64)",
-            fill: "rgba(255, 159, 64, 0.7)",
-          }}
-        />
-      ),
-    },
-    {
-      id: 3,
-      label: "New Customers",
-      content: (
-        <ResponsiveAreaChart
-          kpi="New customers"
-          data={memoizedNewCustomersData}
-          colors={{
-            stroke: "rgb(76, 175, 80)",
-            fill: "rgba(54, 162, 235, 0.2)",
-          }}
-        />
-      ),
-    },
-  ];
+  useEffect(() => {
+    setActiveMetric(0);
+    setChartData(metricsData[0])
+  }, [])
 
   return (
-    <>
-      <Stats
-        dailyRevenue={dailyRevenue}
-        dailyOrders={dailyOrders}
-        newCustomers={newCustomers}
-      />
-      <TabView tabs={tabs} />
-      <RecentSales />
-    </>
-  );
-};
+    <div className="content-wrapper h-full">
+      <div className="basetemplate">
+        <div className="headerTabs">
+          <div className="metrices">
+            {metricsData.map((metric, index) => (
+              loading ?
+                <SkeletonTab key={metric.label} /> :
+                <MetricPill key={metric.label} label={metric.label} dataValue={metric.dataValue} increaseRate={metric.increaseRate} decreaseRate={metric.decreaseRate} active={activeMetric === index} data={metric.data} onClick={() => handlePillClick(metric, index)} />
+            ))}
+
+
+          </div>
+          <div className="dropdownBtn" onClick={handleExpandedIcon}>
+            {expanded ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}
+
+          </div>
+        </div>
+        <div className={`chart ${expanded ? 'chartExpanded' : ''}`}>
+          {loading ? <SkeletonChart /> : <LineChartView chartData={chartData} />}
+        </div>
+
+      </div>
+    </div>
+  )
+}
