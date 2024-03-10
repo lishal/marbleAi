@@ -9,14 +9,14 @@ Component Created for the dashboard
 
 Tools used:<br>
 	Recharts for charts <br>
-    Material UI for useful component <br>
-Note:
+    Material UI for useful component <br><br>
+Note:<br>
 •	setTimeout function is used for the loading animation for 3 seconds. <br>
 •	metricData component keeps track for all the metric present in dashboard <br>
    [ { label: 'Online store sessions', dataValue: '255,581', increaseRate: '9%', data: generateData(10) },
     { label: 'Net return value', dataValue: '-$15,07.44', increaseRate: '14%', data: generateData(10) },
     { label: 'Total orders', dataValue: '10,511', decreaseRate: '2%', data: generateData(10) },
     { label: 'Conversion rate', dataValue: '3.18%', increaseRate: '7%', data: generateData(10) }] <br>
-Above is the data used in the metricData component and it circulates the data throughout the dashboard.<br>
+Above are the data that is used in the metricData component and it circulates the data throughout the dashboard.<br>
 
 
